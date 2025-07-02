@@ -19,7 +19,6 @@ This guide covers:
 **Recommended iOS Apps:**
 - **Termius** (Free/Pro) - Best overall experience, supports multiple key sources
 - **Blink Shell** ($20) - Advanced features, SSH agent support
-- **SSH Files** (Free) - File management + terminal
 - **1Password** - SSH key generation and management
 
 ### 1.2 Generate SSH Keys on iOS
