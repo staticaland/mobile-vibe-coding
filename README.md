@@ -172,8 +172,8 @@ See the [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-co
 # Initialize git if not already done
 git init
 
-# Create GitHub repo from current directory
-gh repo create your-project-name --source=. --public
+# Create GitHub repo from current directory (name defaults to directory name)
+gh repo create --source=. --public
 ```
 
 ### 2. Create README (Optional)
