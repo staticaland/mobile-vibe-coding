@@ -156,16 +156,7 @@ gh auth login[^7]
 
 ### 3.2 Install Claude Code
 
-```bash
-# Install Claude Code CLI
-curl -fsSL https://anthropic.com/claude-code/install.sh | sh
-
-# Or using npm (if Node.js is installed)
-npm install -g @anthropic/claude-code
-
-# Verify installation
-claude --version
-```
+See the [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code/overview) for installation instructions.
 
 ### 3.3 Additional Development Tools
 
