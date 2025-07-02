@@ -158,59 +158,7 @@ gh auth login[^7]
 
 See the [Claude Code documentation](https://docs.anthropic.com/en/docs/claude-code/overview) for installation instructions.
 
-### 3.3 Additional Development Tools
-
-```bash
-# Install Node.js (for web development)
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-apt-get install -y nodejs
-
-# Install Python (usually pre-installed)
-apt install -y python3 python3-pip
-
-# Install Docker (optional)
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-usermod -aG docker developer
-```
-
-## Part 4: Claude Code Workflow
-
-### 4.1 Basic Claude Code Usage
-
-```bash
-# Start Claude Code session
-claude
-
-# Common commands:
-claude --resume          # Resume previous session
-claude --project ./      # Start in specific directory
-claude --help           # View all options
-```
-
-### 4.2 iOS-Optimized Workflow
-
-```bash
-# Create workspace directory
-mkdir -p ~/workspace
-cd ~/workspace
-
-# Use screen/tmux for persistent sessions
-sudo apt install screen tmux
-
-# Start persistent session[^8]
-screen -S coding
-# or
-tmux new-session -s coding
-
-# Inside session, start Claude Code
-claude
-
-# Detach: Ctrl+A, D (screen) or Ctrl+B, D (tmux)
-# Reattach: screen -r coding or tmux attach -t coding
-```
-
-## Part 5: Project Bootstrapping with GitHub CLI
+## Part 3: Project Bootstrapping with GitHub CLI
 
 ### Prerequisites
 
@@ -251,25 +199,6 @@ git config user.email "$(gh api user --jq .email)"
 gh repo set-default owner/repo-name
 ```
 
-### 4. Commit and Push
-
-```bash
-# Stage all files
-git add .
-
-# Commit with descriptive message
-git commit -m "Initial commit
-
-Add README and project setup
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>"
-
-# Push to GitHub
-git push -u origin master
-```
-
 ## Key Benefits
 
 - **Fast Setup**: One-command repository creation
@@ -277,93 +206,7 @@ git push -u origin master
 - **Auto-Configuration**: Git user info pulled from GitHub account
 - **Remote Setup**: Origin remote configured automatically
 
-## Part 6: Troubleshooting
-
-### Common VPS Issues
-
-```bash
-# SSH connection refused
-sudo systemctl status sshd
-sudo systemctl restart sshd
-
-# Port not accessible
-sudo ufw allow 2222/tcp
-sudo ufw enable
-
-# Out of disk space
-df -h
-sudo apt autoremove
-sudo apt autoclean
-```
-
-### GitHub CLI Issues
-
-```bash
-# Authentication problems
-gh auth status
-gh auth logout
-gh auth login
-
-# Permission denied
-gh auth refresh --scopes repo,workflow
-
-# Repository not found
-gh repo set-default owner/repo-name
-```
-
-### iOS-specific Troubleshooting
-
-#### Connection Drops
-- **Issue**: SSH connection drops frequently
-- **Solution**: Add to `~/.ssh/config`:
-```
-Host your-vps-ip
-    ServerAliveInterval 60
-    ServerAliveCountMax 3
-```
-
-#### Keyboard Issues
-- **Issue**: Special keys not working in iOS terminal apps
-- **Solutions**:
-  - Termius: Use custom keyboard with Esc, Tab, Ctrl keys
-  - Blink Shell: Configure external keyboard shortcuts
-  - General: Use `screen` or `tmux` for better terminal management
-
-#### File Transfer
-```bash
-# Using scp from iOS (in supported apps)
-scp -P 2222 local-file developer@your-vps-ip:~/
-
-# Using rsync
-rsync -avz -e "ssh -p 2222" ./local-dir/ developer@your-vps-ip:~/remote-dir/
-```
-
-### Claude Code Issues
-
-```bash
-# API key not set
-export ANTHROPIC_API_KEY="your-key-here"
-echo 'export ANTHROPIC_API_KEY="your-key-here"' >> ~/.bashrc
-
-# Session not resuming
-claude-code --resume --session-id your-session-id
-
-# Memory issues on small VPS
-# Upgrade to larger droplet or use swap:
-sudo fallocate -l 1G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-```
-
-### Project-specific Troubleshooting
-
-- If commit fails due to missing user identity, use `gh auth setup-git` first
-- For private repos, use `--private` flag instead of `--public`
-- Check authentication status with `gh auth status`
-- For large files, consider Git LFS: `git lfs install`
-
-## Part 7: Tips for iOS Development
+## Part 4: Tips for iOS Development
 
 ### Optimizing the Experience
 
