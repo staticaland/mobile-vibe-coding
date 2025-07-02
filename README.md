@@ -142,13 +142,9 @@ Host *
 
 ### 3.1 Install GitHub CLI
 
-```bash
-# Install GitHub CLI
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-apt update
-apt install gh -y
+Follow the [GitHub CLI installation instructions](https://github.com/cli/cli) for your platform.
 
+```bash
 # Authenticate with GitHub
 gh auth login[^7]
 # Follow prompts: GitHub.com → HTTPS → Authenticate via web browser
