@@ -17,8 +17,8 @@ This guide covers:
 ### 1.1 iOS SSH Clients
 
 **Recommended iOS Apps:**
-- **Termius** (Free/Pro) - Best overall experience, supports multiple key sources
-- **Blink Shell** ($20) - Advanced features, SSH agent support
+- **Termius²** (Free/Pro) - Cross-platform SSH client with mosh support, custom keyboards, and seamless authentication
+- **Blink Shell³** ($20) - Professional terminal with mosh integration, VS Code/Codespaces support, and external keyboard compatibility
 - **1Password** - SSH key generation and management
 
 ### 1.2 Generate SSH Keys on iOS
@@ -28,7 +28,7 @@ You can generate SSH keys using several iOS apps:
 #### Using Termius (Recommended)
 1. Open Termius → Settings → Keychain
 2. Tap "+" → Add Key → Generate
-3. Key type: Ed25519
+3. Key type: Ed25519[^6]
 4. Label: "iOS Development Key"
 5. Copy the public key for VPS setup
 
@@ -53,7 +53,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 1. Go to https://cloud.digitalocean.com/
 2. Create Droplets → Ubuntu 22.04 LTS
 3. Choose Basic plan ($4-6/month)
-4. **Add SSH Key**: Paste your public key from iOS SSH app
+4. **Add SSH Key**: Paste your public key from iOS SSH app[^5]
 5. Create Droplet
 
 #### AWS EC2 Alternative
@@ -103,7 +103,7 @@ Protocol: SSH or Mosh (recommended for mobile)
 **Mosh Connection (Recommended for Mobile):**
 - **Termius**: Supports mosh connections for better connectivity
 - **Blink Shell**: Full mosh support with automatic reconnection
-- **Benefits**: Better handling of network changes, connection resumption
+- **Benefits⁴**: Automatic roaming between networks, instant local echo, connection resilience during sleep/wake cycles
 - **Connection Command**: Set `tmux new-session -A -s main` as startup command for persistent sessions
 
 **First Connection Test:**
@@ -128,6 +128,8 @@ sudo vim /etc/ssh/sshd_config
 sudo systemctl restart sshd
 ```
 
+> **Security Note**: For comprehensive server hardening, see the complete security guide¹ which covers firewall configuration, intrusion detection, system monitoring, and additional security measures.
+
 #### iOS Connection Optimization
 Add to `~/.ssh/config` on the server:
 ```
@@ -148,7 +150,7 @@ apt update
 apt install gh -y
 
 # Authenticate with GitHub
-gh auth login
+gh auth login[^7]
 # Follow prompts: GitHub.com → HTTPS → Authenticate via web browser
 ```
 
@@ -205,7 +207,7 @@ cd ~/workspace
 # Use screen/tmux for persistent sessions
 sudo apt install screen tmux
 
-# Start persistent session
+# Start persistent session[^8]
 screen -S coding
 # or
 tmux new-session -s coding
@@ -410,3 +412,23 @@ This setup creates a powerful development environment accessible from any iOS de
 - **iOS Accessibility**: Code anywhere with just an iPad/iPhone
 
 The workflow creates a complete project setup in minutes rather than manual repository creation and configuration, while providing the flexibility of a full development environment accessible from mobile devices.
+
+---
+
+## References
+
+[^1]: [How To Secure A Linux Server](https://github.com/imthenachoman/How-To-Secure-A-Linux-Server) - Comprehensive guide covering SSH hardening, firewall configuration, intrusion detection, and system monitoring
+
+[^2]: [Termius](https://termius.com/) - Cross-platform SSH client with mosh support, custom keyboards, and seamless authentication across iOS, Android, Windows, macOS, and Linux
+
+[^3]: [Blink Shell](https://blink.sh/) - Professional iOS terminal with mosh integration, VS Code/Codespaces support, external keyboard compatibility, and persistent mobile connections
+
+[^4]: [Mosh](https://mosh.org/) - Mobile shell with automatic network roaming, instant local echo, and connection resilience during network changes and device sleep cycles
+
+[^5]: [How to Add SSH Keys to Droplets](https://docs.digitalocean.com/products/droplets/how-to/add-ssh-keys/) - Official DigitalOcean documentation for adding SSH keys to new or existing droplets
+
+[^6]: [SSH Key Best Practices for 2025](https://www.brandonchecketts.com/archives/ssh-ed25519-key-best-practices-for-2025) - Current best practices for Ed25519 SSH keys, including generation, security, and management recommendations
+
+[^7]: [GitHub CLI Authentication](https://cli.github.com/manual/gh_auth_login) - Official GitHub CLI documentation for authentication setup and token management
+
+[^8]: [Persistent SSH Sessions with tmux](https://dev.to/idoko/persistent-ssh-sessions-with-tmux-25dm) - Guide to using tmux for maintaining persistent terminal sessions across network disconnections
