@@ -5,34 +5,60 @@ This comprehensive guide walks you through setting up a complete development env
 ## Overview
 
 This guide covers:
-1. **VPS Setup** - Getting a cloud server (Digital Ocean, AWS, etc.)
-2. **Server Configuration** - Installing essential tools and GitHub CLI
-3. **iOS Access** - Connecting from iOS devices using SSH
-4. **Claude Code Integration** - Setting up the development workflow
-5. **Project Bootstrapping** - Quick project creation with GitHub CLI
+1. **iOS SSH Setup** - Configuring SSH keys and clients on iOS devices
+2. **VPS Setup** - Getting a cloud server (Digital Ocean, AWS, etc.)
+3. **iOS Access Configuration** - Connecting from iOS devices using SSH
+4. **Server Configuration** - Installing essential tools and GitHub CLI
+5. **Claude Code Integration** - Setting up the development workflow
+6. **Project Bootstrapping** - Quick project creation with GitHub CLI
 
-## Part 1: VPS Setup
+## Part 1: iOS SSH Setup
 
-### 1.1 Generate SSH Keys on iOS
+### 1.1 iOS SSH Clients
+
+**Recommended iOS Apps:**
+- **Termius** (Free/Pro) - Best overall experience, supports multiple key sources
+- **Blink Shell** ($20) - Advanced features, SSH agent support
+- **SSH Files** (Free) - File management + terminal
+- **1Password** - SSH key generation and management
+
+### 1.2 Generate SSH Keys on iOS
 
 You can generate SSH keys using several iOS apps:
-- **Termius** (Free/Pro) - Built-in key generation
-- **Blink Shell** ($20) - Full SSH management  
-- **1Password** - SSH key generation and management
-- **SSH Files** (Free) - Basic key support
 
+#### Using Termius (Recommended)
+1. Open Termius → Settings → Keychain
+2. Tap "+" → Add Key → Generate
+3. Key type: Ed25519
+4. Label: "iOS Development Key"
+5. Copy the public key for VPS setup
+
+#### Using Blink Shell
 ```bash
 ssh-keygen -t ed25519 -C "your-email@example.com"
 cat ~/.ssh/id_ed25519.pub  # Copy this public key
 ```
 
-### 1.2 Create a VPS
+#### Using 1Password
+1. Open 1Password → Create → SSH Key
+2. Name: "Development SSH Key"
+3. Key type: Ed25519
+4. Save and copy public key
+
+### 1.3 SSH Key Management Tips
+- **Termius**: Built-in key generation or import from other apps
+- **Blink Shell**: SSH agent support for external key managers
+- **1Password**: SSH key generation and integration with terminal apps
+
+## Part 2: VPS Setup
+
+### 2.1 Create a VPS
 
 #### Digital Ocean (Recommended)
 1. Go to https://cloud.digitalocean.com/
 2. Create Droplets → Ubuntu 22.04 LTS
 3. Choose Basic plan ($4-6/month)
-4. **Add SSH Key**: Paste your public key from your chosen app
+4. **Add SSH Key**: Paste your public key from iOS SSH app
 5. Create Droplet
 
 #### AWS EC2 Alternative
@@ -40,7 +66,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 2. Launch Instance → Ubuntu Server 22.04 LTS
 3. Choose t2.micro (free tier eligible)
 4. Configure security group (allow SSH port 22)
-5. Create or select key pair
+5. Upload your SSH public key
 6. Launch instance
 
 #### Other VPS Providers
@@ -48,7 +74,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 - **Vultr**: $2.50/month starting
 - **Hetzner**: €3.29/month in EU
 
-### 1.2 Initial Server Setup
+### 2.2 Initial Server Setup
 
 ```bash
 # Connect to your VPS
@@ -68,54 +94,25 @@ usermod -aG sudo developer
 rsync --archive --chown=developer:developer ~/.ssh /home/developer
 ```
 
-## Part 2: Server Configuration
+## Part 3: iOS Access Configuration
 
-### 2.1 Install GitHub CLI
+### 3.1 Connect from iOS
 
-```bash
-# Install GitHub CLI
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-apt update
-apt install gh -y
-
-# Authenticate with GitHub
-gh auth login
-# Follow prompts: GitHub.com → HTTPS → Authenticate via web browser
+**Connection Setup in iOS SSH App:**
+```
+Host: your-vps-ip
+Port: 22 (default) or 2222 (if changed)
+Username: developer (or root initially)
+Authentication: SSH Key (from your iOS app)
 ```
 
-### 2.2 Install Claude Code
+#### First Connection Test
+1. Open your iOS SSH app (Termius, Blink Shell, etc.)
+2. Create new host with VPS IP address
+3. Select your SSH key from the app's keychain
+4. Connect and verify access
 
-```bash
-# Install Claude Code CLI
-curl -fsSL https://anthropic.com/claude-code/install.sh | sh
-
-# Or using npm (if Node.js is installed)
-npm install -g @anthropic/claude-code
-
-# Verify installation
-claude --version
-```
-
-### 2.3 Development Environment Setup
-
-```bash
-# Install Node.js (for web development)
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-apt-get install -y nodejs
-
-# Install Python (usually pre-installed)
-apt install -y python3 python3-pip
-
-# Install Docker (optional)
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-usermod -aG docker developer
-```
-
-## Part 3: iOS Access Setup
-
-### 3.1 SSH Configuration
+### 3.2 SSH Security Configuration
 
 ```bash
 # Edit SSH config for better security
@@ -131,39 +128,63 @@ sudo vim /etc/ssh/sshd_config
 sudo systemctl restart sshd
 ```
 
-### 3.2 iOS SSH Clients
+### 3.3 iOS Connection Optimization
 
-**Recommended iOS Apps:**
-- **Termius** (Free/Pro) - Best overall experience, supports multiple key sources
-- **Blink Shell** ($20) - Advanced features, SSH agent support
-- **SSH Files** (Free) - File management + terminal
-
-**Connection Setup:**
+Add to `~/.ssh/config` on the server:
 ```
-Host: your-vps-ip
-Port: 2222 (if changed)
-Username: developer
-Authentication: SSH Key (from your chosen app)
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
 ```
 
-### 3.3 Using SSH Keys with iOS Apps
+## Part 4: Server Configuration
 
-#### SSH Key Management
-- **Termius**: Built-in key generation or import from other apps
-- **Blink Shell**: SSH agent support for external key managers
-- **1Password**: SSH key generation and integration with terminal apps
+### 4.1 Install GitHub CLI
 
-#### With Terminal App Keys
 ```bash
-# If you generated keys in terminal app, copy public key to VPS
-ssh-copy-id -p 2222 developer@your-vps-ip
+# Install GitHub CLI
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+apt update
+apt install gh -y
 
-# Or manually add to ~/.ssh/authorized_keys
+# Authenticate with GitHub
+gh auth login
+# Follow prompts: GitHub.com → HTTPS → Authenticate via web browser
 ```
 
-## Part 4: Claude Code Workflow
+### 4.2 Install Claude Code
 
-### 4.1 Basic Claude Code Usage
+```bash
+# Install Claude Code CLI
+curl -fsSL https://anthropic.com/claude-code/install.sh | sh
+
+# Or using npm (if Node.js is installed)
+npm install -g @anthropic/claude-code
+
+# Verify installation
+claude --version
+```
+
+### 4.3 Development Environment Setup
+
+```bash
+# Install Node.js (for web development)
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+apt-get install -y nodejs
+
+# Install Python (usually pre-installed)
+apt install -y python3 python3-pip
+
+# Install Docker (optional)
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+usermod -aG docker developer
+```
+
+## Part 5: Claude Code Workflow
+
+### 5.1 Basic Claude Code Usage
 
 ```bash
 # Start Claude Code session
@@ -175,7 +196,7 @@ claude --project ./      # Start in specific directory
 claude --help           # View all options
 ```
 
-### 4.2 iOS-Optimized Workflow
+### 5.2 iOS-Optimized Workflow
 
 ```bash
 # Create workspace directory
@@ -197,7 +218,7 @@ claude
 # Reattach: screen -r coding or tmux attach -t coding
 ```
 
-## Part 5: Project Bootstrapping with GitHub CLI
+## Part 6: Project Bootstrapping with GitHub CLI
 
 ### Prerequisites
 
@@ -264,7 +285,7 @@ git push -u origin master
 - **Auto-Configuration**: Git user info pulled from GitHub account
 - **Remote Setup**: Origin remote configured automatically
 
-## Part 6: Troubleshooting
+## Part 7: Troubleshooting
 
 ### Common VPS Issues
 
@@ -350,7 +371,7 @@ sudo swapon /swapfile
 - Check authentication status with `gh auth status`
 - For large files, consider Git LFS: `git lfs install`
 
-## Part 7: Tips for iOS Development
+## Part 8: Tips for iOS Development
 
 ### Optimizing the Experience
 
