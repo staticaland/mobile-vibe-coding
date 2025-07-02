@@ -44,10 +44,6 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 3. Key type: Ed25519
 4. Save and copy public key
 
-### 1.3 SSH Key Management Tips
-- **Termius**: Built-in key generation or import from other apps
-- **Blink Shell**: SSH agent support for external key managers
-- **1Password**: SSH key generation and integration with terminal apps
 
 ## Part 2: VPS Setup
 
@@ -73,17 +69,15 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 - **Vultr**: $2.50/month starting
 - **Hetzner**: €3.29/month in EU
 
-### 2.2 Initial Server Setup
+### 2.2 Server Setup and iOS Access
 
+#### Initial Server Configuration
 ```bash
 # Connect to your VPS
 ssh root@your-vps-ip
 
 # Update system
 apt update && apt upgrade -y
-
-# Install essential tools
-apt install -y curl wget git vim htop
 
 # Create non-root user
 adduser developer
@@ -93,10 +87,7 @@ usermod -aG sudo developer
 rsync --archive --chown=developer:developer ~/.ssh /home/developer
 ```
 
-## Part 3: iOS Access Configuration
-
-### 3.1 Connect from iOS
-
+#### iOS SSH Connection Setup
 **Connection Setup in iOS SSH App:**
 ```
 Host: your-vps-ip
@@ -105,14 +96,13 @@ Username: developer (or root initially)
 Authentication: SSH Key (from your iOS app)
 ```
 
-#### First Connection Test
+**First Connection Test:**
 1. Open your iOS SSH app (Termius, Blink Shell, etc.)
 2. Create new host with VPS IP address
 3. Select your SSH key from the app's keychain
 4. Connect and verify access
 
-### 3.2 SSH Security Configuration
-
+#### SSH Security Configuration
 ```bash
 # Edit SSH config for better security
 sudo vim /etc/ssh/sshd_config
@@ -127,8 +117,7 @@ sudo vim /etc/ssh/sshd_config
 sudo systemctl restart sshd
 ```
 
-### 3.3 iOS Connection Optimization
-
+#### iOS Connection Optimization
 Add to `~/.ssh/config` on the server:
 ```
 Host *
@@ -136,9 +125,9 @@ Host *
     ServerAliveCountMax 3
 ```
 
-## Part 4: Server Configuration
+## Part 3: Development Environment Setup
 
-### 4.1 Install GitHub CLI
+### 3.1 Install GitHub CLI
 
 ```bash
 # Install GitHub CLI
@@ -152,7 +141,7 @@ gh auth login
 # Follow prompts: GitHub.com → HTTPS → Authenticate via web browser
 ```
 
-### 4.2 Install Claude Code
+### 3.2 Install Claude Code
 
 ```bash
 # Install Claude Code CLI
@@ -165,7 +154,7 @@ npm install -g @anthropic/claude-code
 claude --version
 ```
 
-### 4.3 Development Environment Setup
+### 3.3 Additional Development Tools
 
 ```bash
 # Install Node.js (for web development)
@@ -181,9 +170,9 @@ sh get-docker.sh
 usermod -aG docker developer
 ```
 
-## Part 5: Claude Code Workflow
+## Part 4: Claude Code Workflow
 
-### 5.1 Basic Claude Code Usage
+### 4.1 Basic Claude Code Usage
 
 ```bash
 # Start Claude Code session
@@ -195,7 +184,7 @@ claude --project ./      # Start in specific directory
 claude --help           # View all options
 ```
 
-### 5.2 iOS-Optimized Workflow
+### 4.2 iOS-Optimized Workflow
 
 ```bash
 # Create workspace directory
@@ -217,7 +206,7 @@ claude
 # Reattach: screen -r coding or tmux attach -t coding
 ```
 
-## Part 6: Project Bootstrapping with GitHub CLI
+## Part 5: Project Bootstrapping with GitHub CLI
 
 ### Prerequisites
 
@@ -284,7 +273,7 @@ git push -u origin master
 - **Auto-Configuration**: Git user info pulled from GitHub account
 - **Remote Setup**: Origin remote configured automatically
 
-## Part 7: Troubleshooting
+## Part 6: Troubleshooting
 
 ### Common VPS Issues
 
@@ -370,7 +359,7 @@ sudo swapon /swapfile
 - Check authentication status with `gh auth status`
 - For large files, consider Git LFS: `git lfs install`
 
-## Part 8: Tips for iOS Development
+## Part 7: Tips for iOS Development
 
 ### Optimizing the Experience
 
