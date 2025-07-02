@@ -191,9 +191,9 @@ echo "Project description goes here." >> README.md
 # Setup git authentication with GitHub
 gh auth setup-git
 
-# Set git user info from GitHub account
-git config user.name "$(gh api user --jq .login)"
-git config user.email "$(gh api user --jq .email)"
+# Set git user info from GitHub account (globally)
+git config --global user.name "$(gh api user --jq .name)"
+git config --global user.email "$(gh api user --jq .email)"
 
 # Set default repository for easier operations
 gh repo set-default owner/repo-name
