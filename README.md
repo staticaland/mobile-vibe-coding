@@ -79,6 +79,9 @@ apt update && apt upgrade -y
 # Install mosh for better mobile connectivity
 apt install -y mosh
 
+# Install tmux for session management
+apt install -y tmux
+
 # Create non-root user
 adduser developer
 usermod -aG sudo developer
@@ -101,6 +104,7 @@ Protocol: SSH or Mosh (recommended for mobile)
 - **Termius**: Supports mosh connections for better connectivity
 - **Blink Shell**: Full mosh support with automatic reconnection
 - **Benefits**: Better handling of network changes, connection resumption
+- **Connection Command**: Set `tmux new-session -A -s main` as startup command for persistent sessions
 
 **First Connection Test:**
 1. Open your iOS SSH app (Termius, Blink Shell, etc.)
