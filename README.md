@@ -73,11 +73,11 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 
 #### Initial Server Configuration
 ```bash
-# Connect to your VPS
-ssh root@your-vps-ip
-
 # Update system
 apt update && apt upgrade -y
+
+# Install mosh for better mobile connectivity
+apt install -y mosh
 
 # Create non-root user
 adduser developer
@@ -87,20 +87,27 @@ usermod -aG sudo developer
 rsync --archive --chown=developer:developer ~/.ssh /home/developer
 ```
 
-#### iOS SSH Connection Setup
+#### iOS Connection Setup
 **Connection Setup in iOS SSH App:**
 ```
 Host: your-vps-ip
 Port: 22 (default) or 2222 (if changed)
 Username: developer (or root initially)
 Authentication: SSH Key (from your iOS app)
+Protocol: SSH or Mosh (recommended for mobile)
 ```
+
+**Mosh Connection (Recommended for Mobile):**
+- **Termius**: Supports mosh connections for better connectivity
+- **Blink Shell**: Full mosh support with automatic reconnection
+- **Benefits**: Better handling of network changes, connection resumption
 
 **First Connection Test:**
 1. Open your iOS SSH app (Termius, Blink Shell, etc.)
 2. Create new host with VPS IP address
 3. Select your SSH key from the app's keychain
-4. Connect and verify access
+4. Choose mosh protocol if available
+5. Connect and verify access
 
 #### SSH Security Configuration
 ```bash
