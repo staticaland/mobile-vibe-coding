@@ -1,0 +1,57 @@
+site_name: Mobile Vibe Coding
+site_description: Complete guide for coding from iOS with Claude Code
+site_author: Mobile Vibe Coding
+site_url: https://valdres.github.io/mobile-vibe-coding/
+
+repo_name: valdres/mobile-vibe-coding
+repo_url: https://github.com/valdres/mobile-vibe-coding
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - footnotes
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Setup Guide:
+    - iOS SSH Setup: setup/ios-ssh.md
+    - VPS Setup: setup/vps.md
+    - Development Environment: setup/dev-env.md
+    - Cloud-Init: setup/cloud-init.md
+  - References: references.md
