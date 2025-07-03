@@ -23,3 +23,7 @@ deploy:
 # Build and open site locally
 dev: build
     open site/index.html
+
+# Format all markdown files with Prettier
+format-md:
+    npx prettier --write "**/*.md"

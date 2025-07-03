@@ -5,6 +5,7 @@ This comprehensive guide walks you through setting up a complete development env
 ## Overview
 
 This guide covers:
+
 1. **iOS SSH Setup** - Configuring SSH keys and clients on iOS devices
 2. **VPS Setup** - Getting a cloud server (Digital Ocean, AWS, etc.)
 3. **iOS Access Configuration** - Connecting from iOS devices using SSH
@@ -15,7 +16,7 @@ This guide covers:
 ## Key Benefits
 
 - **Fast Setup**: One-command repository creation
-- **Integrated Auth**: GitHub CLI handles authentication seamlessly  
+- **Integrated Auth**: GitHub CLI handles authentication seamlessly
 - **Auto-Configuration**: Git user info pulled from GitHub account
 - **Remote Setup**: Origin remote configured automatically
 

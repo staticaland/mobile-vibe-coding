@@ -5,6 +5,7 @@ This comprehensive guide walks you through setting up a complete development env
 ## Overview
 
 This guide covers:
+
 1. **iOS SSH Setup** - Configuring SSH keys and clients on iOS devices
 2. **VPS Setup** - Getting a cloud server (Digital Ocean, AWS, etc.)
 3. **iOS Access Configuration** - Connecting from iOS devices using SSH
@@ -17,6 +18,7 @@ This guide covers:
 ### 1.1 iOS SSH Clients
 
 **Recommended iOS Apps:**
+
 - **Termius²** (Free/Pro) - Cross-platform SSH client with mosh support, custom keyboards, and seamless authentication
 - **Blink Shell³** ($20) - Professional terminal with mosh integration, VS Code/Codespaces support, and external keyboard compatibility
 - **1Password** - SSH key generation and management
@@ -26,6 +28,7 @@ This guide covers:
 You can generate SSH keys using several iOS apps:
 
 #### Using Termius (Recommended)
+
 1. Open Termius → Settings → Keychain
 2. Tap "+" → Add Key → Generate
 3. Key type: Ed25519[^6]
@@ -33,23 +36,25 @@ You can generate SSH keys using several iOS apps:
 5. Copy the public key for VPS setup
 
 #### Using Blink Shell
+
 ```bash
 ssh-keygen -t ed25519 -C "your-email@example.com"
 cat ~/.ssh/id_ed25519.pub  # Copy this public key
 ```
 
 #### Using 1Password
+
 1. Open 1Password → Create → SSH Key
 2. Name: "Development SSH Key"
 3. Key type: Ed25519
 4. Save and copy public key
-
 
 ## Part 2: VPS Setup
 
 ### 2.1 Create a VPS
 
 #### Digital Ocean (Recommended)
+
 1. Go to https://cloud.digitalocean.com/
 2. Create Droplets → Ubuntu 22.04 LTS
 3. Choose Basic plan ($4-6/month)
@@ -57,6 +62,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 5. Create Droplet
 
 #### AWS EC2 Alternative
+
 1. Go to https://aws.amazon.com/ec2/
 2. Launch Instance → Ubuntu Server 22.04 LTS
 3. Choose t2.micro (free tier eligible)
@@ -65,6 +71,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 6. Launch instance
 
 #### Other VPS Providers
+
 - **Linode**: $5/month basic plans
 - **Vultr**: $2.50/month starting
 - **Hetzner**: €3.29/month in EU
@@ -72,6 +79,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this public key
 ### 2.2 Server Setup and iOS Access
 
 #### Initial Server Configuration
+
 ```bash
 # Update system
 apt update && apt upgrade -y
@@ -91,7 +99,9 @@ rsync --archive --chown=developer:developer ~/.ssh /home/developer
 ```
 
 #### iOS Connection Setup
+
 **Connection Setup in iOS SSH App:**
+
 ```
 Host: your-vps-ip
 Port: 22 (default) or 2222 (if changed)
@@ -101,12 +111,14 @@ Protocol: SSH or Mosh (recommended for mobile)
 ```
 
 **Mosh Connection (Recommended for Mobile):**
+
 - **Termius**: Supports mosh connections for better connectivity
 - **Blink Shell**: Full mosh support with automatic reconnection
 - **Benefits⁴**: Automatic roaming between networks, instant local echo, connection resilience during sleep/wake cycles
 - **Connection Command**: Set `tmux new-session -A -s main` as startup command for persistent sessions
 
 **First Connection Test:**
+
 1. Open your iOS SSH app (Termius, Blink Shell, etc.)
 2. Create new host with VPS IP address
 3. Select your SSH key from the app's keychain
@@ -114,6 +126,7 @@ Protocol: SSH or Mosh (recommended for mobile)
 5. Connect and verify access
 
 #### SSH Security Configuration
+
 ```bash
 # Edit SSH config for better security
 sudo vim /etc/ssh/sshd_config
@@ -131,7 +144,9 @@ sudo systemctl restart sshd
 > **Security Note**: For comprehensive server hardening, see the complete security guide¹ which covers firewall configuration, intrusion detection, system monitoring, and additional security measures.
 
 #### iOS Connection Optimization
+
 Add to `~/.ssh/config` on the server:
+
 ```
 Host *
     ServerAliveInterval 60
@@ -198,7 +213,7 @@ gh repo set-default owner/repo-name
 ## Key Benefits
 
 - **Fast Setup**: One-command repository creation
-- **Integrated Auth**: GitHub CLI handles authentication seamlessly  
+- **Integrated Auth**: GitHub CLI handles authentication seamlessly
 - **Auto-Configuration**: Git user info pulled from GitHub account
 - **Remote Setup**: Origin remote configured automatically
 
@@ -239,19 +254,19 @@ write_files:
           ServerAliveInterval 60
           ServerAliveCountMax 3
     owner: developer:developer
-    permissions: '0600'
+    permissions: "0600"
   - path: /etc/ssh/sshd_config.d/99-custom.conf
     content: |
       PermitRootLogin no
       PasswordAuthentication no
       PubkeyAuthentication yes
       Port 2222
-    permissions: '0644'
+    permissions: "0644"
 
 runcmd:
   - systemctl restart sshd
   - ufw allow 2222/tcp
-  - ufw allow 60000:61000/udp  # Mosh port range
+  - ufw allow 60000:61000/udp # Mosh port range
   - ufw --force enable
   - curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
   - echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
@@ -263,6 +278,7 @@ runcmd:
 ### Using Cloud-Init
 
 **Digital Ocean:**
+
 ```bash
 # Create droplet with cloud-init
 doctl compute droplet create my-dev-server \
@@ -273,6 +289,7 @@ doctl compute droplet create my-dev-server \
 ```
 
 **AWS EC2:**
+
 ```bash
 # Launch instance with cloud-init
 aws ec2 run-instances \
@@ -296,6 +313,7 @@ Most VPS providers allow uploading cloud-init files during instance creation thr
 ### Customization
 
 Before using, update the cloud-config.yaml:
+
 1. Replace the SSH key with your actual public key
 2. Modify the `developer` username if desired
 3. Add any additional packages or configuration needed

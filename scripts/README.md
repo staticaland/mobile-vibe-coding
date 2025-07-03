@@ -24,7 +24,7 @@ A script that uses the GitHub CLI to enable GitHub Pages with GitHub Actions as 
 1. **Checks prerequisites**: Verifies GitHub CLI is installed and authenticated
 2. **Gets repository info**: Identifies the current repository
 3. **Checks Pages status**: Determines if Pages is already enabled and configured
-4. **Enables/Updates Pages**: 
+4. **Enables/Updates Pages**:
    - If Pages is disabled: Enables it with GitHub Actions as source
    - If Pages is enabled with wrong source: Updates it to use GitHub Actions
    - If Pages is already correctly configured: Reports success
@@ -32,8 +32,9 @@ A script that uses the GitHub CLI to enable GitHub Pages with GitHub Actions as 
 ### Output
 
 The script provides colored output showing:
+
 - ✅ Success messages in green
-- ⚠️ Warnings in yellow  
+- ⚠️ Warnings in yellow
 - ℹ️ Info messages in blue
 - ❌ Errors in red
 
@@ -64,6 +65,7 @@ The script provides colored output showing:
 ### Error Handling
 
 The script handles common issues:
+
 - GitHub CLI not installed or authenticated
 - Repository not found or no GitHub remote
 - Insufficient permissions
