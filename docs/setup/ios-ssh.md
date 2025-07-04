@@ -27,6 +27,14 @@ ssh-keygen -t ed25519 -C "your-email@example.com"
 cat ~/.ssh/id_ed25519.pub  # Copy this public key
 ```
 
+Blink Shell also supports `ssh-copy-id` for easy key deployment using the key name:
+
+```bash
+ssh-copy-id your-key-name user@your-server.com
+```
+
+> **Note**: Replace `your-key-name` with the name you gave your key in Blink Shell. For detailed ssh-copy-id usage and troubleshooting, see the [official Blink documentation](https://docs.blink.sh/basics/commands#ssh-copy-id).
+
 ### Using 1Password
 
 1. Open 1Password → Create → SSH Key
