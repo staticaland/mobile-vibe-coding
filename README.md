@@ -1,30 +1,31 @@
-# Mobile Vibe Coding
+# Mobile Development Environment Setup
 
-Complete guide for coding from iOS with Claude Code, including VPS setup, GitHub CLI configuration, and project bootstrapping.
+Professional guide for establishing a complete mobile development environment using Claude Code, enabling productive coding from iOS devices through remote development servers.
 
 ## Overview
 
-This guide covers:
+This comprehensive documentation covers:
 
-- **iOS SSH Setup** - Configuring SSH keys and clients on iOS devices
-- **VPS Setup** - Getting a cloud server (Digital Ocean, AWS, etc.)
-- **Development Environment** - Installing essential tools and Claude Code
-- **Project Bootstrapping** - Quick project creation with GitHub CLI
+- **iOS SSH Configuration** - Secure key management and terminal client setup
+- **VPS Deployment** - Cloud server provisioning and configuration
+- **Development Environment** - Essential tool installation and Claude Code integration
+- **Project Bootstrapping** - Streamlined repository creation and management
 
 ## Documentation
 
-📖 **[Read the full guide](https://valdres.github.io/mobile-vibe-coding/)**
+📖 **[Read the complete guide](https://valdres.github.io/mobile-vibe-coding/)**
 
-## Quick Start
+## Quick Start Guide
 
-1. Set up SSH keys on your iOS device
-2. Create and configure a VPS
-3. Install development tools and Claude Code
-4. Start coding from your phone/tablet
+1. **Configure SSH keys** on your iOS device using professional clients
+2. **Deploy and configure** a cloud development server
+3. **Install development tools** and authenticate with GitHub
+4. **Start coding productively** from your mobile device
 
-## Features
+## Key Features
 
-- **Fast Setup**: One-command repository creation
-- **Integrated Auth**: GitHub CLI handles authentication seamlessly
-- **Auto-Configuration**: Git user info pulled from GitHub account
-- **Remote Setup**: Origin remote configured automatically
+- **Streamlined Setup**: One-command repository creation and configuration
+- **Integrated Authentication**: GitHub CLI handles authentication seamlessly
+- **Auto-Configuration**: Git user information pulled from GitHub account
+- **Remote Development**: Origin remote configured automatically
+- **Mobile-Optimized**: Persistent connections using Mosh and tmux

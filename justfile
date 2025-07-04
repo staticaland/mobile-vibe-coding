@@ -27,3 +27,11 @@ dev: build
 # Format all markdown files with Prettier
 format-md:
     npx prettier --write "**/*.md"
+
+# Work on a GitHub issue using interactive fzf selector
+issue:
+    ./scripts/gh-issue.sh
+
+# List all open GitHub issues
+issues:
+    gh issue list --state open

@@ -1,104 +1,156 @@
-# VPS Setup
+# VPS Configuration
 
-## Create a VPS
+## Cloud Provider Selection
+
+Choose a Virtual Private Server (VPS) provider based on your requirements and budget:
 
 ### Digital Ocean (Recommended)
 
-1. Go to https://cloud.digitalocean.com/
-2. Create Droplets → Ubuntu 22.04 LTS
-3. Choose Basic plan ($4-6/month)
-4. **Add SSH Key**: Paste your public key from iOS SSH app[^5]
-5. Create Droplet
+**Setup Process:**
 
-### AWS EC2 Alternative
+1. Navigate to https://cloud.digitalocean.com/
+2. Select **Create Droplets** → **Ubuntu 22.04 LTS**
+3. Choose **Basic plan** ($4-6/month for development workloads)
+4. **Add SSH Key**: Paste your public key from iOS SSH application[^5]
+5. **Create Droplet** and note the assigned IP address
 
-1. Go to https://aws.amazon.com/ec2/
-2. Launch Instance → Ubuntu Server 22.04 LTS
-3. Choose t2.micro (free tier eligible)
-4. Configure security group (allow SSH port 22)
+### AWS EC2
+
+**Setup Process:**
+
+1. Access https://aws.amazon.com/ec2/
+2. Select **Launch Instance** → **Ubuntu Server 22.04 LTS**
+3. Choose **t2.micro** (eligible for free tier)
+4. Configure security group rules (allow SSH port 22)
 5. Upload your SSH public key
-6. Launch instance
+6. **Launch instance** and record connection details
 
-### Other VPS Providers
+### Alternative Providers
 
-- **Linode**: $5/month basic plans
-- **Vultr**: $2.50/month starting
-- **Hetzner**: €3.29/month in EU
+Compare these cost-effective options:
 
-## Server Setup and iOS Access
+| Provider    | Starting Price | Notable Features                          |
+| ----------- | -------------- | ----------------------------------------- |
+| **Linode**  | $5/month       | Excellent performance, global locations   |
+| **Vultr**   | $2.50/month    | Competitive pricing, SSD storage          |
+| **Hetzner** | €3.29/month    | European focus, high-performance hardware |
 
-### Initial Server Configuration
+## Server Configuration
+
+### Initial System Setup
+
+Execute these commands to prepare your server for development:
 
 ```bash
-# Update system
+# Update system packages
 apt update && apt upgrade -y
 
-# Install mosh for better mobile connectivity
-apt install -y mosh
+# Install essential packages
+apt install -y mosh tmux curl git build-essential
 
-# Install tmux for session management
-apt install -y tmux
-
-# Create non-root user
+# Create development user account
 adduser developer
 usermod -aG sudo developer
 
-# Copy SSH keys to new user
+# Transfer SSH keys to new user
 rsync --archive --chown=developer:developer ~/.ssh /home/developer
 ```
 
-### iOS Connection Setup
+### iOS Connection Configuration
 
-**Connection Setup in iOS SSH App:**
+Configure your iOS SSH client with these parameters:
+
+**Connection Parameters:**
 
 ```
-Host: your-vps-ip
-Port: 22 (default) or 2222 (if changed)
-Username: developer (or root initially)
-Authentication: SSH Key (from your iOS app)
-Protocol: SSH or Mosh (recommended for mobile)
+Host: your-vps-ip-address
+Port: 22 (default) or 2222 (if modified)
+Username: developer (or root for initial setup)
+Authentication: SSH Key (from your iOS keychain)
+Protocol: SSH or Mosh (recommended for mobile usage)
 ```
 
-**Mosh Connection (Recommended for Mobile):**
+### Mobile-Optimized Connections
 
-- **Termius**: Supports mosh connections for better connectivity
-- **Blink Shell**: Full mosh support with automatic reconnection
-- **Benefits⁴**: Automatic roaming between networks, instant local echo, connection resilience during sleep/wake cycles
-- **Connection Command**: Set `tmux new-session -A -s main` as startup command for persistent sessions
+#### **Mosh Protocol (Recommended)**
 
-**First Connection Test:**
+Mosh provides superior mobile connectivity with these advantages:
 
-1. Open your iOS SSH app (Termius, Blink Shell, etc.)
-2. Create new host with VPS IP address
-3. Select your SSH key from the app's keychain
-4. Choose mosh protocol if available
-5. Connect and verify access
+- **Network Roaming**: Automatic reconnection when switching networks
+- **Local Echo**: Immediate response for better typing experience
+- **Connection Resilience**: Maintains sessions during device sleep/wake cycles
+- **UDP-Based**: More efficient than TCP for mobile connections
 
-### SSH Security Configuration
+**Client Configuration:**
+
+| Client          | Mosh Support     | Additional Features            |
+| --------------- | ---------------- | ------------------------------ |
+| **Termius**     | Native support   | Better connectivity management |
+| **Blink Shell** | Full integration | Automatic reconnection         |
+
+#### **Persistent Sessions**
+
+Configure automatic session management:
 
 ```bash
-# Edit SSH config for better security
+# Set startup command in your SSH client
+tmux new-session -A -s main
+```
+
+### Connection Verification
+
+Test your setup with these steps:
+
+1. **Open your iOS SSH client** (Termius, Blink Shell, etc.)
+2. **Create new host** using your VPS IP address
+3. **Select SSH key** from the application's keychain
+4. **Choose Mosh protocol** if available
+5. **Connect and verify** successful authentication
+
+## Security Configuration
+
+### SSH Hardening
+
+Implement these security measures to protect your development server:
+
+```bash
+# Edit SSH daemon configuration
 sudo vim /etc/ssh/sshd_config
 
-# Recommended settings:
+# Apply security settings:
 # Port 2222                    # Change default port
 # PermitRootLogin no          # Disable root login
 # PasswordAuthentication no   # Use keys only
-# PubkeyAuthentication yes
+# PubkeyAuthentication yes    # Enable key authentication
 
-# Restart SSH service
+# Restart SSH service to apply changes
 sudo systemctl restart sshd
 ```
 
-!!! note "Security Note"
-For comprehensive server hardening, see the complete security guide¹ which covers firewall configuration, intrusion detection, system monitoring, and additional security measures.
+!!! warning "Security Considerations"
+For comprehensive server hardening, consult the [complete security guide¹](../references.md#references) which covers firewall configuration, intrusion detection, system monitoring, and additional security measures.
 
-### iOS Connection Optimization
+### Connection Optimization
 
-Add to `~/.ssh/config` on the server:
+Configure persistent connections for improved mobile experience:
 
-```
+**Server-side SSH Configuration:**
+
+```bash
+# Edit SSH client configuration
+vim ~/.ssh/config
+
+# Add connection optimization
 Host *
     ServerAliveInterval 60
     ServerAliveCountMax 3
+```
+
+**Firewall Configuration:**
+
+```bash
+# Configure UFW firewall
+sudo ufw allow 2222/tcp          # SSH port
+sudo ufw allow 60000:61000/udp   # Mosh port range
+sudo ufw --force enable
 ```

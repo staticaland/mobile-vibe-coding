@@ -1,6 +1,6 @@
-site_name: Mobile Vibe Coding
-site_description: Complete guide for coding from iOS with Claude Code
-site_author: Mobile Vibe Coding
+site_name: Mobile Development Environment Setup
+site_description: Professional guide for establishing a complete mobile development environment using Claude Code
+site_author: Mobile Development Environment Setup
 site_url: https://valdres.github.io/mobile-vibe-coding/
 
 repo_name: valdres/mobile-vibe-coding
@@ -50,9 +50,12 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Setup Guide:
-    - iOS SSH Setup: setup/ios-ssh.md
-    - VPS Setup: setup/vps.md
+    - iOS SSH Configuration: setup/ios-ssh.md
+    - VPS Configuration: setup/vps.md
     - Development Environment: setup/dev-env.md
-    - Cloud-Init: setup/cloud-init.md
+    - Cloud-Init Automation: setup/cloud-init.md
     - Port Forwarding: setup/port-forwarding.md
+  - Support:
+    - FAQ: faq.md
+    - Troubleshooting: troubleshooting.md
   - References: references.md

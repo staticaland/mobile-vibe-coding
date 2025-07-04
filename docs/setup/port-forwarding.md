@@ -1,42 +1,88 @@
-# Port Forwarding with Mosh
+# Port Forwarding Configuration
 
-Port forwarding with Mosh has some important limitations. Here's what you need to know:
+Port forwarding enables secure access to services running on your remote development server from your local iOS device.
 
-## **The Challenge:**
+## Protocol Limitations
 
-Mosh has no concepts of SSH tunnels or bastion hosts - this is a fundamental limitation of the Mosh protocol itself.
+### **Mosh Constraints**
 
-## **Workaround in Blink Shell:**
+Mosh protocol has inherent limitations regarding port forwarding:
 
-### **Method 1: SSH Tunnel + Mosh (Recommended)**
+- **No SSH Tunnel Support**: Mosh cannot establish SSH tunnels directly
+- **No Bastion Host Capability**: Fundamental protocol limitation
+- **UDP-Based**: Different architecture than SSH's TCP-based tunneling
 
-You can run a SSH tunnel in a different window. Once the SSH tunnel is established and the remote port brought to your machine, you can use `mosh localhost:1234` where 1234 is the port you tunneled, to connect via the SSH tunnel to Mosh.
+## Implementation Strategies
 
-**Steps:**
+### **Method 1: Hybrid SSH + Mosh (Recommended)**
 
-1. **First terminal:** Set up SSH tunnel with port forwarding
-   
-   ```bash
-   ssh -L 8000:localhost:8000 -N user@server
-   ```
+Combine SSH tunneling with Mosh connections for optimal mobile development:
 
-2. **Second terminal:** Connect via Mosh through the tunnel
-   
-   ```bash
-   mosh localhost
-   ```
-
-### **Method 2: Direct SSH for Port Forwarding**
-
-If you need persistent port forwarding, you might need to use SSH directly instead of Mosh:
+**Step 1: Establish SSH Tunnel**
 
 ```bash
+# Create port forwarding tunnel (runs in background)
+ssh -L 8000:localhost:8000 -N user@server
+```
+
+**Step 2: Connect via Mosh**
+
+```bash
+# Connect to server via Mosh (separate connection)
+mosh user@server
+```
+
+This approach provides:
+
+- **Persistent Tunneling**: SSH handles port forwarding
+- **Mobile Resilience**: Mosh provides connection stability
+- **Concurrent Operation**: Both connections run simultaneously
+
+### **Method 2: Direct SSH Port Forwarding**
+
+For scenarios requiring persistent port forwarding:
+
+```bash
+# SSH with port forwarding (blocking connection)
 ssh -L 8000:localhost:8000 user@server
 ```
 
-## **Key Points:**
+Use this method when:
 
-- Mosh cannot establish SSH tunnels directly
-- Use separate SSH connections for port forwarding
-- The tunnel and Mosh connection can run simultaneously
-- Consider using SSH when port forwarding is essential
+- Port forwarding is critical to your workflow
+- You need guaranteed tunnel persistence
+- Mobile connection stability is less important
+
+## **Configuration Examples**
+
+### **Development Server Access**
+
+Forward common development ports:
+
+```bash
+# Forward web development server
+ssh -L 3000:localhost:3000 -N user@server
+
+# Forward database connections
+ssh -L 5432:localhost:5432 -N user@server
+
+# Forward API development
+ssh -L 8080:localhost:8080 -N user@server
+```
+
+### **Multiple Port Forwarding**
+
+```bash
+# Forward multiple ports simultaneously
+ssh -L 3000:localhost:3000 \
+    -L 5432:localhost:5432 \
+    -L 8080:localhost:8080 \
+    -N user@server
+```
+
+## **Best Practices**
+
+- **Use SSH for Port Forwarding**: Leverage SSH's proven tunneling capabilities
+- **Separate Connections**: Maintain independent SSH and Mosh connections
+- **Background Tunnels**: Use `-N` flag for dedicated tunneling connections
+- **Security**: Only forward ports that require external access

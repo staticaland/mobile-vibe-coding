@@ -1,30 +1,41 @@
-# Coding from iOS with Claude Code: Complete Setup Guide
+# Mobile Development Environment Setup Guide
 
-This comprehensive guide walks you through setting up a complete development environment for coding from iOS using Claude Code, including VPS setup, GitHub CLI configuration, and project bootstrapping.
+This guide provides step-by-step instructions for establishing a complete mobile development environment using Claude Code, enabling you to code effectively from iOS devices through a remote development server.
 
 ## Overview
 
-This guide covers:
+This documentation covers the complete setup process from initial configuration to productive development:
 
-1. **iOS SSH Setup** - Configuring SSH keys and clients on iOS devices
-2. **VPS Setup** - Getting a cloud server (Digital Ocean, AWS, etc.)
-3. **iOS Access Configuration** - Connecting from iOS devices using SSH
-4. **Server Configuration** - Installing essential tools and GitHub CLI
-5. **Claude Code Integration** - Setting up the development workflow
-6. **Project Bootstrapping** - Quick project creation with GitHub CLI
+1. **[iOS SSH Setup](setup/ios-ssh.md)** - Configure SSH keys and terminal clients on iOS devices
+2. **[VPS Setup](setup/vps.md)** - Create and configure a cloud development server
+3. **[Development Environment](setup/dev-env.md)** - Install essential development tools and Claude Code
+4. **[Cloud-Init](setup/cloud-init.md)** - Automated server provisioning (optional)
+5. **[Port Forwarding](setup/port-forwarding.md)** - Configure network tunneling for local development
 
-## Key Benefits
+## Key Features
 
-- **Fast Setup**: One-command repository creation
-- **Integrated Auth**: GitHub CLI handles authentication seamlessly
-- **Auto-Configuration**: Git user info pulled from GitHub account
-- **Remote Setup**: Origin remote configured automatically
+- **Streamlined Setup**: One-command repository creation and configuration
+- **Integrated Authentication**: GitHub CLI handles authentication seamlessly
+- **Auto-Configuration**: Git user information pulled from GitHub account
+- **Remote Development**: Origin remote configured automatically
+- **Mobile-Optimized**: Persistent connections using Mosh and tmux
 
-## Getting Started
+## Prerequisites
 
-Follow the setup sections in order:
+Before starting, ensure you have:
 
-1. [iOS SSH Setup](setup/ios-ssh.md) - Configure SSH keys and clients
-2. [VPS Setup](setup/vps.md) - Create and configure your development server
-3. [Development Environment](setup/dev-env.md) - Install tools and Claude Code
-4. [Cloud-Init](setup/cloud-init.md) - Automated server setup option
+- An iOS device with a compatible SSH client
+- A GitHub account with appropriate permissions
+- Access to a cloud hosting provider (Digital Ocean, AWS, etc.)
+- Basic familiarity with command-line interfaces
+
+## Quick Start
+
+Follow the setup sections in sequential order for optimal results:
+
+1. Generate SSH keys on your iOS device
+2. Create and configure your VPS instance
+3. Install development tools and authenticate with GitHub
+4. Configure Claude Code for your development workflow
+
+For advanced users, the [Cloud-Init](setup/cloud-init.md) section provides automated server provisioning options.
