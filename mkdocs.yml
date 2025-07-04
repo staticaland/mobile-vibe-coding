@@ -54,4 +54,5 @@ nav:
     - VPS Setup: setup/vps.md
     - Development Environment: setup/dev-env.md
     - Cloud-Init: setup/cloud-init.md
+    - Port Forwarding: setup/port-forwarding.md
   - References: references.md
