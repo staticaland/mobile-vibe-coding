@@ -20,6 +20,8 @@ You can generate SSH keys using several iOS apps:
 4. Label: "iOS Development Key"
 5. Copy the public key for VPS setup
 
+For copying SSH keys to your server, see the [official Termius documentation](https://termius.com/documentation/copy-ssh-key-to-server).
+
 ### Using Blink Shell
 
 ```bash
