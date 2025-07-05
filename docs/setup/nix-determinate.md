@@ -65,11 +65,6 @@ Add a `flake.nix` file to your project root:
             
             # Documentation
             just
-            
-            # SSH/remote tools
-            openssh
-            mosh
-            tmux
           ];
           
           shellHook = ''
