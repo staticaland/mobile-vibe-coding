@@ -51,6 +51,7 @@ nav:
   - Home: index.md
   - Setup Guide:
     - iOS SSH Configuration: setup/ios-ssh.md
+    - iOS Code Editors: setup/ios-editors.md
     - VPS Configuration: setup/vps.md
     - Development Environment: setup/dev-env.md
     - Nix with Determinate Systems: setup/nix-determinate.md
