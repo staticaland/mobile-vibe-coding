@@ -53,6 +53,7 @@ nav:
     - iOS SSH Configuration: setup/ios-ssh.md
     - VPS Configuration: setup/vps.md
     - Development Environment: setup/dev-env.md
+    - Nix with Determinate Systems: setup/nix-determinate.md
     - Cloud-Init Automation: setup/cloud-init.md
     - Port Forwarding: setup/port-forwarding.md
   - Support:
