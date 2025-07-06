@@ -1,10 +1,10 @@
-# Troubleshooting Guide
+# Troubleshooting guide
 
-Common issues and solutions for mobile development environment setup.
+Common issues and solutions for mobile development setup.
 
-## SSH Connection Issues
+## SSH connection issues
 
-### Problem: Unable to connect to VPS
+### Can't connect to VPS
 
 **Symptoms:**
 
@@ -14,28 +14,28 @@ Common issues and solutions for mobile development environment setup.
 
 **Solutions:**
 
-1. **Verify SSH service status**
+1. **Check SSH service status**
 
    ```bash
    sudo systemctl status ssh
    sudo systemctl start ssh  # If not running
    ```
 
-2. **Check firewall configuration**
+2. **Check firewall**
 
    ```bash
    sudo ufw status
    sudo ufw allow ssh  # If SSH port is blocked
    ```
 
-3. **Validate SSH key configuration**
+3. **Check SSH key setup**
    ```bash
    # On server
    cat ~/.ssh/authorized_keys
-   # Ensure your public key is present
+   # Your public key should be here
    ```
 
-### Problem: SSH key authentication fails
+### SSH key authentication fails
 
 **Symptoms:**
 
@@ -51,22 +51,22 @@ Common issues and solutions for mobile development environment setup.
    chmod 600 ~/.ssh/authorized_keys
    ```
 
-2. **Check SSH daemon configuration**
+2. **Check SSH daemon config**
 
    ```bash
    sudo grep -E "(PubkeyAuthentication|PasswordAuthentication)" /etc/ssh/sshd_config
-   # Ensure: PubkeyAuthentication yes
+   # Should show: PubkeyAuthentication yes
    ```
 
-3. **Validate key format**
+3. **Check key format**
    ```bash
    ssh-keygen -l -f ~/.ssh/id_ed25519.pub
-   # Should show valid key fingerprint
+   # Shows valid key fingerprint
    ```
 
-## Mosh Connection Issues
+## Mosh connection issues
 
-### Problem: Mosh connection fails
+### Mosh connection fails
 
 **Symptoms:**
 
@@ -88,15 +88,15 @@ Common issues and solutions for mobile development environment setup.
    sudo ufw allow 60000:61000/udp
    ```
 
-3. **Verify Mosh server is running**
+3. **Check Mosh server**
    ```bash
    which mosh-server
-   # Should return path to mosh-server
+   # Returns path to mosh-server
    ```
 
-## GitHub CLI Issues
+## GitHub CLI issues
 
-### Problem: GitHub authentication fails
+### GitHub authentication fails
 
 **Symptoms:**
 
@@ -121,14 +121,14 @@ Common issues and solutions for mobile development environment setup.
    gh auth login
    ```
 
-3. **Verify authentication status**
+3. **Check authentication status**
    ```bash
    gh auth status
    ```
 
-## Port Forwarding Issues
+## Port forwarding issues
 
-### Problem: Port forwarding not working
+### Port forwarding not working
 
 **Symptoms:**
 
@@ -138,7 +138,7 @@ Common issues and solutions for mobile development environment setup.
 
 **Solutions:**
 
-1. **Verify service is running**
+1. **Check service is running**
 
    ```bash
    sudo netstat -tlnp | grep :8000
@@ -152,16 +152,16 @@ Common issues and solutions for mobile development environment setup.
    # Look for your tunnel process
    ```
 
-3. **Test local connectivity**
+3. **Test local connection**
    ```bash
    # On server
    curl localhost:8000
-   # Should connect to your service
+   # Connects to your service
    ```
 
-## iOS Client Issues
+## iOS client issues
 
-### Problem: iOS SSH client connection issues
+### iOS SSH client connection issues
 
 **Symptoms:**
 
@@ -173,7 +173,7 @@ Common issues and solutions for mobile development environment setup.
 
 1. **Enable Mosh protocol**
    - Switch from SSH to Mosh in client settings
-   - Verify Mosh is installed on server
+   - Check Mosh is installed on server
 
 2. **Configure session persistence**
 
@@ -190,9 +190,9 @@ Common issues and solutions for mobile development environment setup.
        ServerAliveCountMax 3
    ```
 
-## Performance Issues
+## Performance issues
 
-### Problem: Slow response times
+### Slow response times
 
 **Symptoms:**
 
@@ -228,7 +228,7 @@ Common issues and solutions for mobile development environment setup.
        ControlPersist 10m
    ```
 
-## General Debugging
+## General debugging
 
 ### Enable verbose logging
 
@@ -259,16 +259,16 @@ sudo journalctl -u ssh
 sudo journalctl -f
 ```
 
-## Getting Help
+## Getting help
 
-If you encounter issues not covered in this guide:
+If you encounter issues not covered here:
 
-1. **Check the [References](references.md)** for additional resources
-2. **Review server logs** for specific error messages
-3. **Test individual components** to isolate the problem
-4. **Document your configuration** for easier troubleshooting
+1. **Check the [References](references.md)** for more resources
+2. **Review server logs** for error messages
+3. **Test components individually** to isolate the problem
+4. **Document your config** for easier troubleshooting
 
-## Common Command Reference
+## Common command reference
 
 **Quick diagnostic commands:**
 
