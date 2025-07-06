@@ -94,3 +94,7 @@ just issues
 - The site is configured to deploy to GitHub Pages
 - The `gh-issue.sh` script integrates with Claude Code for issue-driven development
 - Documentation is served on `0.0.0.0:8000` to allow access from remote connections (important for VPS development)
+
+## Workflow Guidance
+
+- Always run the justfile target after creating or changing gha workflows
