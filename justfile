@@ -35,3 +35,7 @@ issue:
 # List all open GitHub issues
 issues:
     gh issue list --state open
+
+# Pin GitHub Actions to specific versions
+pin-actions:
+    pin-github-action .github/workflows/
