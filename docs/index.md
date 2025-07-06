@@ -27,11 +27,11 @@ Code from your iOS device using Claude Code and a remote development server.
 
 ## Quick start
 
-Follow these steps in order:
+Follow these steps:
 
 1. Generate SSH keys on your iOS device
 2. Create and configure your VPS instance
 3. Install development tools and authenticate with GitHub
 4. Configure Claude Code for your workflow
 
-Advanced users can use [Cloud-Init](setup/cloud-init.md) for automated server setup.
+Use [Cloud-Init](setup/cloud-init.md) for automated server setup.

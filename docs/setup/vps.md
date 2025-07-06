@@ -2,13 +2,13 @@
 
 ## Cloud Provider Selection
 
-Choose a Virtual Private Server (VPS) provider based on your requirements and budget:
+Choose a VPS provider:
 
 ### Digital Ocean (Recommended)
 
-**Setup Process:**
+**Setup:**
 
-1. Navigate to https://cloud.digitalocean.com/
+1. Go to https://cloud.digitalocean.com/
 2. Select **Create Droplets** → **Ubuntu 22.04 LTS**
 3. Choose **Basic plan** ($4-6/month for development workloads)
 4. **Add SSH Key**: Paste your public key from iOS SSH application[^5]
@@ -16,9 +16,9 @@ Choose a Virtual Private Server (VPS) provider based on your requirements and bu
 
 ### AWS EC2
 
-**Setup Process:**
+**Setup:**
 
-1. Access https://aws.amazon.com/ec2/
+1. Go to https://aws.amazon.com/ec2/
 2. Select **Launch Instance** → **Ubuntu Server 22.04 LTS**
 3. Choose **t2.micro** (eligible for free tier)
 4. Configure security group rules (allow SSH port 22)
@@ -39,7 +39,7 @@ Compare these cost-effective options:
 
 ### Initial System Setup
 
-Execute these commands to prepare your server for development:
+Run these commands:
 
 ```bash
 # Update system packages
@@ -58,9 +58,9 @@ rsync --archive --chown=developer:developer ~/.ssh /home/developer
 
 ### iOS Connection Configuration
 
-Configure your iOS SSH client with these parameters:
+Configure your iOS SSH client:
 
-**Connection Parameters:**
+**Connection details:**
 
 ```
 Host: your-vps-ip-address
@@ -74,7 +74,7 @@ Protocol: SSH or Mosh (recommended for mobile usage)
 
 #### **Mosh Protocol (Recommended)**
 
-Mosh provides superior mobile connectivity with these advantages:
+Mosh provides better mobile connectivity:
 
 - **Network Roaming**: Automatic reconnection when switching networks
 - **Local Echo**: Immediate response for better typing experience
@@ -99,7 +99,7 @@ tmux new-session -A -s main
 
 ### Connection Verification
 
-Test your setup with these steps:
+Test your setup:
 
 1. **Open your iOS SSH client** (Termius, Blink Shell, etc.)
 2. **Create new host** using your VPS IP address
@@ -111,7 +111,7 @@ Test your setup with these steps:
 
 ### SSH Hardening
 
-Implement these security measures to protect your development server:
+Secure your server:
 
 ```bash
 # Edit SSH daemon configuration
@@ -132,7 +132,7 @@ For comprehensive server hardening, consult the [complete security guide¹](../r
 
 ### Connection Optimization
 
-Configure persistent connections for improved mobile experience:
+Configure persistent connections:
 
 **Server-side SSH Configuration:**
 
