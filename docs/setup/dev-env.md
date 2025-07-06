@@ -1,8 +1,8 @@
-# Development Environment Setup
+# Development environment setup
 
-## GitHub CLI Installation
+## GitHub CLI installation
 
-Install and configure GitHub CLI for seamless repository management:
+Install and configure GitHub CLI:
 
 ```bash
 # Install GitHub CLI (Ubuntu/Debian)
@@ -11,7 +11,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githu
 sudo apt update && sudo apt install -y gh
 ```
 
-**Authentication Process:**
+**Authentication:**
 
 ```bash
 # Authenticate with GitHub
@@ -19,31 +19,31 @@ gh auth login[^7]
 # Follow prompts: GitHub.com → HTTPS → Authenticate via web browser
 ```
 
-## Claude Code Installation
+## Claude Code installation
 
 Install Claude Code following the [official documentation](https://docs.anthropic.com/en/docs/claude-code/overview).
 
-**Installation verification:**
+**Verify installation:**
 
 ```bash
 # Verify installation
 claude --version
 ```
 
-## Project Bootstrapping Workflow
+## Project bootstrapping workflow
 
-### Prerequisites Checklist
+### Prerequisites checklist
 
-Before proceeding, ensure you have:
+Before proceeding, you need:
 
 - ✅ VPS with GitHub CLI installed and authenticated
 - ✅ SSH access configured from iOS device
 - ✅ Claude Code installed and configured
 - ✅ Git installed and configured
 
-### Repository Creation Process
+### Repository creation process
 
-#### 1. Initialize Git Repository
+#### 1. Initialize Git repository
 
 ```bash
 # Initialize git repository
@@ -53,7 +53,7 @@ git init
 gh repo create --source=. --public
 ```
 
-#### 2. Project Documentation (Optional)
+#### 2. Project documentation (optional)
 
 ```bash
 # Create basic README file
@@ -62,7 +62,7 @@ echo "" >> README.md
 echo "Project description goes here." >> README.md
 ```
 
-#### 3. Git Configuration
+#### 3. Git configuration
 
 ```bash
 # Configure git authentication with GitHub
@@ -76,7 +76,7 @@ git config --global user.email "$(gh api user --jq .email)"
 gh repo set-default owner/repo-name
 ```
 
-### Workflow Verification
+### Workflow verification
 
 Test your setup with these commands:
 
