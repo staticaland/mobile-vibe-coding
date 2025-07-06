@@ -1,21 +1,21 @@
-# iOS SSH Configuration
+# iOS SSH setup
 
-## Recommended SSH Clients
+## SSH clients
 
-Choose from these professional iOS SSH clients based on your needs:
+Choose an SSH client for iOS:
 
 ### **Termius²** (Free/Pro)
 
-Cross-platform SSH client featuring:
+Cross-platform SSH client with:
 
-- Mosh protocol support for reliable mobile connections
+- Mosh protocol for reliable mobile connections
 - Custom keyboard layouts for development
-- Seamless authentication across devices
-- Synchronization across platforms
+- Authentication across devices
+- Sync across platforms
 
 ### **Blink Shell³** ($20)
 
-Professional terminal application with:
+Professional terminal with:
 
 - Native mosh integration
 - VS Code and GitHub Codespaces support
@@ -26,48 +26,48 @@ Professional terminal application with:
 
 Secure key management with:
 
-- SSH key generation capabilities
-- Encrypted storage and synchronization
+- SSH key generation
+- Encrypted storage and sync
 - Integration with SSH clients
 
-## SSH Key Generation
+## Generate SSH keys
 
-Generate SSH keys using your preferred iOS application following these standardized procedures:
+Create SSH keys using your chosen iOS app:
 
-### Method 1: Termius (Recommended)
+### Method 1: Termius (recommended)
 
-1. Navigate to **Termius** → **Settings** → **Keychain**
+1. Go to **Termius** → **Settings** → **Keychain**
 2. Select **"+"** → **Add Key** → **Generate**
-3. Configure key parameters:
+3. Set key options:
    - **Key type**: Ed25519[^6] (recommended for security)
    - **Label**: "iOS Development Key"
-4. Copy the generated public key for server configuration
+4. Copy the public key for server setup
 
-!!! tip "Key Deployment"
-For automated key deployment to your server, refer to the [official Termius documentation](https://termius.com/documentation/copy-ssh-key-to-server).
+!!! tip "Key deployment"
+For automated key deployment, see the [official Termius documentation](https://termius.com/documentation/copy-ssh-key-to-server).
 
 ### Method 2: Blink Shell
 
-Generate keys using the integrated terminal:
+Generate keys in the terminal:
 
 ```bash
 ssh-keygen -t ed25519 -C "your-email@example.com"
 cat ~/.ssh/id_ed25519.pub  # Display public key for copying
 ```
 
-Deploy keys using the built-in utility:
+Deploy keys with the built-in utility:
 
 ```bash
 ssh-copy-id your-key-name user@your-server.com
 ```
 
-!!! note "Key Reference"
-Replace `your-key-name` with the actual key name assigned in Blink Shell. For comprehensive ssh-copy-id usage and troubleshooting, consult the [official Blink documentation](https://docs.blink.sh/basics/commands#ssh-copy-id).
+!!! note "Key reference"
+Replace `your-key-name` with the actual key name from Blink Shell. For ssh-copy-id usage, see the [official Blink documentation](https://docs.blink.sh/basics/commands#ssh-copy-id).
 
 ### Method 3: 1Password
 
 1. Open **1Password** → **Create** → **SSH Key**
-2. Configure key settings:
+2. Set key options:
    - **Name**: "Development SSH Key"
    - **Key type**: Ed25519
-3. Save the key and copy the public key portion
+3. Save the key and copy the public key
