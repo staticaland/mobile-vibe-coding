@@ -1,18 +1,18 @@
-# VPS Configuration
+# VPS configuration
 
-## Cloud Provider Selection
+## Cloud provider selection
 
 Choose a VPS provider:
 
-### Digital Ocean (Recommended)
+### Digital Ocean (recommended)
 
 **Setup:**
 
 1. Go to https://cloud.digitalocean.com/
 2. Select **Create Droplets** → **Ubuntu 22.04 LTS**
-3. Choose **Basic plan** ($4-6/month for development workloads)
-4. **Add SSH Key**: Paste your public key from iOS SSH application[^5]
-5. **Create Droplet** and note the assigned IP address
+3. Choose **Basic plan** ($4-6/month for development)
+4. **Add SSH Key**: Paste your public key from iOS SSH app[^5]
+5. **Create Droplet** and note the IP address
 
 ### AWS EC2
 
@@ -20,12 +20,12 @@ Choose a VPS provider:
 
 1. Go to https://aws.amazon.com/ec2/
 2. Select **Launch Instance** → **Ubuntu Server 22.04 LTS**
-3. Choose **t2.micro** (eligible for free tier)
+3. Choose **t2.micro** (free tier eligible)
 4. Configure security group rules (allow SSH port 22)
 5. Upload your SSH public key
 6. **Launch instance** and record connection details
 
-### Alternative Providers
+### Alternative providers
 
 Compare these cost-effective options:
 
@@ -35,9 +35,9 @@ Compare these cost-effective options:
 | **Vultr**   | $2.50/month    | Competitive pricing, SSD storage          |
 | **Hetzner** | €3.29/month    | European focus, high-performance hardware |
 
-## Server Configuration
+## Server configuration
 
-### Initial System Setup
+### Initial setup
 
 Run these commands:
 
@@ -56,7 +56,7 @@ usermod -aG sudo developer
 rsync --archive --chown=developer:developer ~/.ssh /home/developer
 ```
 
-### iOS Connection Configuration
+### iOS connection setup
 
 Configure your iOS SSH client:
 
@@ -67,28 +67,28 @@ Host: your-vps-ip-address
 Port: 22 (default) or 2222 (if modified)
 Username: developer (or root for initial setup)
 Authentication: SSH Key (from your iOS keychain)
-Protocol: SSH or Mosh (recommended for mobile usage)
+Protocol: SSH or Mosh (recommended for mobile)
 ```
 
-### Mobile-Optimized Connections
+### Mobile-optimized connections
 
-#### **Mosh Protocol (Recommended)**
+#### **Mosh protocol (recommended)**
 
 Mosh provides better mobile connectivity:
 
-- **Network Roaming**: Automatic reconnection when switching networks
-- **Local Echo**: Immediate response for better typing experience
-- **Connection Resilience**: Maintains sessions during device sleep/wake cycles
-- **UDP-Based**: More efficient than TCP for mobile connections
+- **Network roaming**: Automatic reconnection when switching networks
+- **Local echo**: Immediate response for better typing
+- **Connection resilience**: Maintains sessions during device sleep/wake cycles
+- **UDP-based**: More efficient than TCP for mobile connections
 
-**Client Configuration:**
+**Client configuration:**
 
 | Client          | Mosh Support     | Additional Features            |
 | --------------- | ---------------- | ------------------------------ |
 | **Termius**     | Native support   | Better connectivity management |
 | **Blink Shell** | Full integration | Automatic reconnection         |
 
-#### **Persistent Sessions**
+#### **Persistent sessions**
 
 Configure automatic session management:
 
@@ -97,19 +97,19 @@ Configure automatic session management:
 tmux new-session -A -s main
 ```
 
-### Connection Verification
+### Connection verification
 
 Test your setup:
 
 1. **Open your iOS SSH client** (Termius, Blink Shell, etc.)
 2. **Create new host** using your VPS IP address
-3. **Select SSH key** from the application's keychain
+3. **Select SSH key** from the app's keychain
 4. **Choose Mosh protocol** if available
 5. **Connect and verify** successful authentication
 
-## Security Configuration
+## Security configuration
 
-### SSH Hardening
+### SSH hardening
 
 Secure your server:
 
@@ -127,14 +127,14 @@ sudo vim /etc/ssh/sshd_config
 sudo systemctl restart sshd
 ```
 
-!!! warning "Security Considerations"
+!!! warning "Security considerations"
 For comprehensive server hardening, consult the [complete security guide¹](../references.md#references) which covers firewall configuration, intrusion detection, system monitoring, and additional security measures.
 
-### Connection Optimization
+### Connection optimization
 
 Configure persistent connections:
 
-**Server-side SSH Configuration:**
+**Server-side SSH configuration:**
 
 ```bash
 # Edit SSH client configuration
@@ -146,7 +146,7 @@ Host *
     ServerAliveCountMax 3
 ```
 
-**Firewall Configuration:**
+**Firewall configuration:**
 
 ```bash
 # Configure UFW firewall
